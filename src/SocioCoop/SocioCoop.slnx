@@ -1,1 +1,6 @@
-<Solution />
+<Solution>
+  <Project Path="SocioCoop.API/SocioCoop.API.csproj" Id="af1542c2-6433-4e75-afc7-35050f1ad86c" />
+  <Project Path="SocioCoop.Application/SocioCoop.Application.csproj" Id="6b96b72d-20aa-4736-86c8-8e34983e02a8" />
+  <Project Path="SocioCoop.Domain/SocioCoop.Domain.csproj" Id="4c7891c9-f752-4947-b8db-0c26e41dbd10" />
+  <Project Path="SocioCoop.Infraestructure/SocioCoop.Infraestructure.csproj" Id="efde2149-07f5-4073-9065-f1fd9e7e60da" />
+</Solution>
