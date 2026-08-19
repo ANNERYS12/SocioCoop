@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SocioCoop.Domain\SocioCoop.Domain.csproj" />
+    <ProjectReference Include="..\SocioCoop.Infraestructure\SocioCoop.Infraestructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SocioCoop.Application\SocioCoop.Application.csproj" />
     <ProjectReference Include="..\SocioCoop.Domain\SocioCoop.Domain.csproj" />
     <ProjectReference Include="..\SocioCoop.Infraestructure\SocioCoop.Infraestructure.csproj" />
   </ItemGroup>
