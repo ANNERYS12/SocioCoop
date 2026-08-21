@@ -47,5 +47,17 @@ namespace SocioCoop.API.Controllers
             var nuevoSocio = await _socioService.CrearAsync(dto);
             return CreatedAtAction(nameof(GetSocio), new { id = nuevoSocio.Id }, nuevoSocio);
         }
+
+        // DELETE: api/socios/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> EliminarSocio(int id)
+        {
+            var eliminado = await _socioService.EliminarAsync(id);
+            if (!eliminado)
+            {
+                return NotFound(new { mensaje = $"No se encontró el socio con ID {id}" });
+            }
+            return NoContent();
+        }
     }
 }

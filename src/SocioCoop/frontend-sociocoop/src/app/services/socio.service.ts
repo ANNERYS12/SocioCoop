@@ -6,7 +6,7 @@ export interface Socio {
   id?: number;
   nombre: string;
   cedula: string;
-  balanceAportes?: number;
+  balanceAportes: number;
 }
 
 @Injectable({
@@ -21,7 +21,15 @@ export class SocioService {
     return this.http.get<Socio[]>(this.apiUrl);
   }
 
-  crearSocio(socio: Socio): Observable<Socio> {
+  crearSocio(socio: { nombre: string; cedula: string; aporteInicial: number }): Observable<Socio> {
     return this.http.post<Socio>(this.apiUrl, socio);
   }
-}
+
+  eliminarSocio(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  agregarAporte(socioId: number, monto: number, concepto: string): Observable<any> {
+    return this.http.post('https://localhost:7195/api/aportes', { socioId, monto, concepto });
+  }
+} 

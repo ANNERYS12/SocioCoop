@@ -23,7 +23,9 @@ namespace SocioCoop.Application.Services
                     Id = s.Id,
                     Nombre = s.Nombre,
                     Cedula = s.Cedula,
-                    BalanceAportes = s.BalanceAportes
+                    BalanceAportes = _context.Aportes
+                        .Where(a => a.SocioId == s.Id && a.Activo)
+                        .Sum(a => a.Monto)
                 }).ToListAsync();
         }
 
@@ -32,12 +34,16 @@ namespace SocioCoop.Application.Services
             var socio = await _context.Socios.FindAsync(id);
             if (socio == null) return null;
 
+            var balance = await _context.Aportes
+                .Where(a => a.SocioId == id && a.Activo)
+                .SumAsync(a => a.Monto);
+
             return new SocioDto
             {
                 Id = socio.Id,
                 Nombre = socio.Nombre,
                 Cedula = socio.Cedula,
-                BalanceAportes = socio.BalanceAportes
+                BalanceAportes = balance
             };
         }
 
@@ -48,13 +54,35 @@ namespace SocioCoop.Application.Services
             _context.Socios.Add(nuevoSocio);
             await _context.SaveChangesAsync();
 
+            if (dto.AporteInicial > 0)
+            {
+                var aporte = new Aporte
+                {
+                    SocioId = nuevoSocio.Id,
+                    Monto = dto.AporteInicial,
+                    Concepto = "Aporte Inicial"
+                };
+                _context.Aportes.Add(aporte);
+                await _context.SaveChangesAsync();
+            }
+
             return new SocioDto
             {
                 Id = nuevoSocio.Id,
                 Nombre = nuevoSocio.Nombre,
                 Cedula = nuevoSocio.Cedula,
-                BalanceAportes = nuevoSocio.BalanceAportes
+                BalanceAportes = dto.AporteInicial
             };
+        }
+
+        public async Task<bool> EliminarAsync(int id)
+        {
+            var socio = await _context.Socios.FindAsync(id);
+            if (socio == null) return false;
+
+            _context.Socios.Remove(socio);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

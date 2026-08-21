@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ISocioService, SocioService>();
+builder.Services.AddScoped<IAporteService, AporteService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

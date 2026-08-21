@@ -7,5 +7,6 @@ namespace SocioCoop.Application.Interfaces
         Task<IEnumerable<SocioDto>> ObtenerTodosAsync();
         Task<SocioDto?> ObtenerPorIdAsync(int id);
         Task<SocioDto> CrearAsync(CrearSocioDto dto);
+        Task<bool> EliminarAsync(int id);
     }
 }
